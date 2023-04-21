@@ -1,3 +1,8 @@
+#include <MFRC522.h>
+#include <MFRC522Extended.h>
+#include <deprecated.h>
+#include <require_cpp11.h>
+
 #include <SPI.h>
 #include <MFRC522.h>
 #include <Arduino.h>
@@ -21,7 +26,7 @@ byte bufferLen = 18;
 byte readBlockData[18];
 //-----------------------------------------
 String card_holder_name;
-const String sheet_url = "https://script.google.com/macros/s/AKfycbxNfIVl9pMcStBsIBTOaPi97uwhArVDiteIHJi-7we2yk3D2MUtrvjoMQazfZUJxNwwcA/exec?name=";
+const String sheet_url = "https://script.google.com/macros/s/AKfycbzgCGTNaijVcHL7AaB3mCtVxup5hjyOhpmS2LwzG3Z50ZoUV2EtxrnnA1YzMRe-fXja/exec?name=";
 //-----------------------------------------
 // Fingerprint for demo URL
 const uint8_t fingerprint[20] = { 0x8d, 0xc5, 0x65, 0x10, 0x71, 0x12, 0x6b, 0x24, 0x9b, 0x99, 0x8c, 0x1f, 0xa9, 0x0c, 0xd1, 0x0e, 0x07, 0xc0, 0x4d, 0xa4 };
@@ -124,7 +129,7 @@ void loop() {
     amt.getBytes(blockData, 16);
     WriteDataToBlock(blockNum, blockData);
 
-    card_holder_name = sheet_url + tag + "_" + String(amount);
+    card_holder_name = sheet_url + tag + "&balance=" + String(amount);
     card_holder_name.trim();
     Serial.println(card_holder_name);
     //-----------------------------------------------------------------
